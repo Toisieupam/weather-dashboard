@@ -4,21 +4,128 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Weather Dashboard</title>
-  <style>
-    :root{
-      --bg1:#071c2f;
-      --bg2:#112d49;
-      --panel:rgba(10,22,35,0.72);
-      --line:rgba(255,255,255,0.12);
-      --text:#edf7ff;
-      --muted:#cfe1f3;
-      --accent:#ffd166;
-      --primary:#7ecbff;
-      --good:#72e0a2;
-      --warn:#ffb86b;
-      --bad:#ff7a7a;
-      --shadow:rgba(3,10,20,0.4);
-    }
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-group">
+        <div class="brand-mark">☀️</div>
+        <div>
+          <p class="eyebrow">Weather</p>
+          <h1>Dashboard</h1>
+        </div>
+      </div>
 
-    *{ box-sizing:border-box; }
-    html,body
+      <form id="searchForm" class="search-bar">
+        <input id="cityInput" type="text" placeholder="Tìm thành phố..." aria-label="Tìm thành phố" />
+        <button type="submit">Tìm kiếm</button>
+      </form>
+    </header>
+
+    <main class="layout">
+      <section id="heroPanel" class="hero-panel sunny">
+        <div class="sky-scene"></div>
+        <div class="sun"></div>
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="rain rain-1"></div>
+        <div class="rain rain-2"></div>
+        <div class="rain rain-3"></div>
+        <div class="mist"></div>
+        <div class="mountains"></div>
+
+        <div class="hero-overlay">
+          <div class="location-row">
+            <div>
+              <p class="muted">Địa điểm</p>
+              <h2 id="cityName">Hanoi</h2>
+            </div>
+            <div id="statusPill" class="status-pill">Clear sky</div>
+          </div>
+
+          <div class="temp-row">
+            <div class="temp-wrap">
+              <div id="currentTemp" class="temp">--°</div>
+              <div id="feelsLike" class="feels-like">Cảm giác như --°</div>
+            </div>
+
+            <div class="condition-wrap">
+              <div id="conditionIcon" class="condition-icon">☀️</div>
+              <p id="conditionText">Clear sky</p>
+            </div>
+          </div>
+
+          <div class="meta-grid">
+            <div class="meta-item">
+              <span>Độ ẩm</span>
+              <strong id="humidity">--%</strong>
+            </div>
+            <div class="meta-item">
+              <span>Gió</span>
+              <strong id="wind">-- km/h</strong>
+            </div>
+            <div class="meta-item">
+              <span>Áp suất</span>
+              <strong id="pressure">-- hPa</strong>
+            </div>
+            <div class="meta-item">
+              <span>Tầm nhìn</span>
+              <strong id="visibility">-- km</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <div class="card">
+          <div class="card-header">
+            <span>Sun cycle</span>
+            <span id="dateLabel">--</span>
+          </div>
+
+          <div class="sun-cycle">
+            <div class="sun-line">
+              <div class="sun-orb"></div>
+            </div>
+            <div class="sun-times">
+              <div>
+                <label>Sunrise</label>
+                <strong id="sunrise">--:--</strong>
+              </div>
+              <div>
+                <label>Sunset</label>
+                <strong id="sunset">--:--</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span>Air Quality</span>
+          </div>
+
+          <div class="aqi-row">
+            <div id="aqiBadge" class="aqi-badge">N/A</div>
+            <div>
+              <p class="aqi-label">AQI</p>
+              <p id="aqiText">Unavailable</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <section class="forecast-panel">
+      <div class="card-header">
+        <span>5-day forecast</span>
+      </div>
+      <div id="forecastList" class="forecast-list"></div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
