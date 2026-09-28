@@ -33,7 +33,7 @@ const cityInput = document.getElementById('cityInput');
 const searchForm = document.getElementById('searchForm');
 const heroPanel = document.getElementById('heroPanel');
 const cityNameEl = document.getElementById('cityName');
-const dateLabelEl = document.getElementById('dateLabel');
+dateLabelEl = document.getElementById('dateLabel');
 const statusPillEl = document.getElementById('statusPill');
 const conditionIconEl = document.getElementById('conditionIcon');
 const conditionTextEl = document.getElementById('conditionText');
@@ -110,10 +110,16 @@ async function geocodeCity(city) {
 }
 
 async function fetchWeatherData(lat, lon, timezone) {
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,pressure_msl,wind_speed_10m,visibility&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=${encodeURIComponent(timezone)}&forecast_days=5`;
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,pressure_msl,wind_speed_10m,visibility&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset&timezone=${encodeURIComponent(timezone)}`;
   const response = await fetch(url);
   if (!response.ok) throw new Error('Không thể tải dữ liệu thời tiết.');
-  return response.json();
+
+  const data = await response.json();
+  if (!data?.current || !data?.daily) {
+    throw new Error('Dữ liệu thời tiết không hợp lệ.');
+  }
+
+  return data;
 }
 
 async function fetchAirQuality(lat, lon) {
